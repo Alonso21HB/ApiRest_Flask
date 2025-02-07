@@ -23,10 +23,6 @@ tareas = [
     Tarea(2, "Leer un libro","Leer un libro de desarrollo web")
 ]
 
-@app.route('/')
-def home():
-    return "Bienvenido a mi primera api en flask"
-
 @app.route('/tareas', methods=['GET'])
 def obtener_tareas():
     return jsonify([tarea.diccionario() for tarea in tareas])
@@ -38,7 +34,6 @@ def agregar_tarea():
                         descripcion=request.json['descripcion'])
     tareas.append(nueva_tarea)
     return jsonify(nueva_tarea.diccionario()), 201
-
 
 @app.route('/tareas/<int:id>', methods=['PUT'])
 def actualizar_tarea(id):
