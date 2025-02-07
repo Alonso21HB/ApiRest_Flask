@@ -42,7 +42,7 @@ def actualizar_tarea(id):
         tarea.titulo = request.json.get('titulo', tarea.titulo)
         tarea.descripcion = request.json.get('descripcion', tarea.descripcion)
         return jsonify(tarea.diccionario())
-    return jsonify({"error": "tarea no encontrada"}), 404
+    return jsonify({"error": "nada de tarea"}), 404
 
 @app.route('/tareas/<int:id>', methods=['DELETE'])
 def eliminar_tarea(id):
