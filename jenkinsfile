@@ -1,0 +1,41 @@
+pipeline {
+    agent any  // Usa cualquier nodo disponible
+
+    environment {
+        IMAGE_NAME = "apiflask"
+        CONTAINER_NAME = "goofy_blackburn"
+    }
+
+    stages {
+        stage('Clonar código') {
+            steps {
+                git 'https://github.com/Alonso21HB/ApiRest_Flask.git'  // Reemplázalo con tu repo
+            }
+        }
+
+        stage('Construir imagen Docker') {
+            steps {
+                sh 'docker build -t ${IMAGE_NAME} .'  // Construye la imagen con el Dockerfile
+            }
+        }
+
+        stage('Ejecutar contenedor') {
+            steps {
+                sh '''
+                docker stop ${CONTAINER_NAME} || true
+                docker rm ${CONTAINER_NAME} || true
+                docker run -d --name ${CONTAINER_NAME} -p 5000:5000 ${IMAGE_NAME}
+                '''
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Despliegue exitoso'
+        }
+        failure {
+            echo 'Falló la ejecución'
+        }
+    }
+}
