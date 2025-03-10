@@ -7,11 +7,6 @@ pipeline {
     }
 
     stages {
-        stage('Clonar código') {
-            steps {
-                git 'https://github.com/Alonso21HB/ApiRest_Flask.git'  // Reemplázalo con tu repo
-            }
-        }
 
         stage('Construir imagen Docker') {
             steps {
